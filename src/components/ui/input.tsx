@@ -4,7 +4,7 @@ import {
   InputProps,
   VariantProps,
 } from "@nextui-org/react";
-import { FC, forwardRef } from "react";
+import { forwardRef } from "react";
 
 const CustomInputVariants = extendVariants(NextInput, {
   variants: {
@@ -84,7 +84,6 @@ const CustomInputVariants = extendVariants(NextInput, {
     variant: "bordered",
     // color: "stone",
     textSize: "base",
-    removeLabel: true,
   },
 });
 
@@ -94,28 +93,11 @@ type InputVariantProps = VariantProps<typeof CustomInputVariants>;
 type MergedProps = InputVariantProps &
   Omit<InputProps, keyof InputVariantProps>;
 
-const Input: FC<MergedProps> = forwardRef(function Input(
-  {
-    variant = "custom",
-    // labelPlacement = "outside",
-    // classNames = {
-    //   label: " text-black",
-    //   inputWrapper: "px-0",
-    //   input: "rounded-md px-3",
-    // },
-    ...otherProps
-  },
+const Input = forwardRef<HTMLInputElement, MergedProps>(function Input(
+  { variant = "custom", ...otherProps },
   ref,
 ) {
-  return (
-    <CustomInputVariants
-      ref={ref}
-      variant={variant}
-      // classNames={classNames}
-      // labelPlacement={labelPlacement}
-      {...otherProps}
-    />
-  );
+  return <CustomInputVariants ref={ref} variant={variant} {...otherProps} />;
 });
 
 export default Input;
